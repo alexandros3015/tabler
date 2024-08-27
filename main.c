@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <windows.h>
 
 int main() {
-
+    system("cls");
     char arithorgeo[10];
     double rate, intercept;
     int arorgeo, end;
@@ -28,10 +29,17 @@ int main() {
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
     
-    if (strcmp(start0, "yes") || strcmp(start0, "y") == 0) {
-        intercept = intercept - rate;
-    } else if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0) {
-        // Uhh idk why one would want to do anything here
+    if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0) {
+        // no more
+    } else if (strcmp(start0, "yes") || strcmp(start0, "y") == 0) {
+        if (arorgeo == 0) {
+            intercept = intercept - rate;
+        } else if (arorgeo == 1) {
+            intercept = intercept / rate;
+        } else {
+            printf("ERROR");
+            return 1;
+        }
     } else {
         printf("Please enter a valid input");
         return 1;
@@ -41,18 +49,19 @@ int main() {
     if (arorgeo == 0) {
         
         while (x <= end) {
-            printf(" %3d | %f\n", x, intercept + x * rate);
+            printf(" %3d | %f\n", x, intercept + (x * rate));
             ++x;
         }
     } else if (arorgeo == 1) {
-    
-        if (intercept == 0) {
-                intercept = 1;
-            }
             while (x <= end) {
                 printf(" %3d | %f\n", x, intercept * pow(rate, x));
                 ++x;
             }
     }
+    if (arorgeo == 0) {
+        printf("\nLine: f(n) = %lfn + %lf", rate, intercept);
+    } else if (arorgeo == 1) {
+        printf("\nLine: f(n) = %lf^n * %lf", rate, intercept);
+    }        
     return 0;
 }
