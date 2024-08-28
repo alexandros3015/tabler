@@ -60,32 +60,12 @@ int main() {
     }
     if (arorgeo == 0) {
         printf("\nLine: f(n) = %lfn + %lf\n", rate, intercept);
+        printf("a_0 = %lf, a_n = a_n-1 + %lf\n", intercept, rate);
     } else if (arorgeo == 1) {
         printf("\nLine: f(n) = %lf^n * %lf\n", rate, intercept);
-    }        
-    
-    if (arorgeo == 0) {
-        printf("\nLine: f(n) = %lfn + %lf", rate, intercept);
-    } else if (arorgeo == 1) {
-        printf("\nLine: f(n) = %lf^n * %lf", rate, intercept);
-    }        
-    
-    if (strcmp(start0, "no") || strcmp(start0, "n") == 0) {
-        if (arorgeo == 0) {
-            intercept = intercept - rate;
-        } else if (arorgeo == 1) {
-            intercept = intercept / rate;
-        } else {
-            printf("ERROR");
-            return 1;
-        }
-    
-    if (arorgeo == 0) {
-        printf("\na_1 = %lf, a_n = a_n-1 + %lf", intercept, rate);
-    } else if (arorgeo == 1) {
-        printf("\na_1 = %lf, a_n = a_n-1 * %lf", intercept, rate);
-    }   
+        printf("a_0 = %lf, a_n = a_n-1 * %lf\n", intercept, rate);
+    }  
     
     return 0;
-    }
+
 }
