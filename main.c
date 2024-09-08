@@ -10,6 +10,7 @@ void plotGraph(const char *filename) {
         fprintf(gnuplot, "set title 'Sequence Graph'\n");
         fprintf(gnuplot, "set xlabel 'n'\n");
         fprintf(gnuplot, "set ylabel 'f(n)'\n");
+        fprintf(gnuplot, "set grid\n");
         fprintf(gnuplot, "plot '%s' with lines\n", filename);  
         pclose(gnuplot);
     } else {
@@ -73,24 +74,27 @@ int main(int argc, char *argv[]) {
         printf("Please enter a valid input.\n");
         return 1;
     }
-
+    printf("  n | f(n)\n");
+    printf("----------\n");
     // Show the graph and write the data
     if (arorgeo == 0) {
         // Arithmetic sequence
         while (x <= end) {
             double fn = intercept + x * rate;
-            printf("%d | %lf\n", x, fn);
+            printf("%3d | %lf\n", x, fn);
             fprintf(fp, "%d %lf\n", x, fn);  
             ++x;
         }
+        printf("\nf(n) = %lf + %lf * n\n", intercept, rate);
     } else if (arorgeo == 1) {
         // Geometric sequence
         while (x <= end) {
             double fn = intercept * pow(rate, x);
-            printf("%d | %lf\n", x, fn);
+            printf("%3d | %lf\n", x, fn);
             fprintf(fp, "%d %lf\n", x, fn);  
             ++x;
         }
+        printf("\nf(n) = %lf * %lf^n\n", intercept, rate);
     }
 
     fclose(fp); 
