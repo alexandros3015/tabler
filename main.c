@@ -22,10 +22,13 @@ int main() {
     char start0[4];
     printf("Enter your rate (Common difference/common ratio): ");
     scanf("%lf", &rate);
+    
     printf("Enter your intercept (or start, X is 0): ");
     scanf("%lf", &intercept);
+    
     printf("Ending X value (gotta stop somewhere): ");
     scanf("%d", &end);
+    
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
     
