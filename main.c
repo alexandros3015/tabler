@@ -1,74 +1,103 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <windows.h>
+#include <stdlib.h>
 
-int main() {
-    system("cls");
+// freaky GNUPlot stuff
+void plotGraph(const char *filename) {
+    FILE *gnuplot = popen("gnuplot -persistent", "w");
+    if (gnuplot != NULL) {
+        fprintf(gnuplot, "set title 'Sequence Graph'\n");
+        fprintf(gnuplot, "set xlabel 'n'\n");
+        fprintf(gnuplot, "set ylabel 'f(n)'\n");
+        fprintf(gnuplot, "plot '%s' with lines\n", filename);  
+        pclose(gnuplot);
+    } else {
+        printf("Error: Could not open gnuplot.\n");
+    }
+}
+
+int main(int argc, char *argv[]) {
+    int plotornah = 0;
+    if (argc > 1) {
+        if (strcmp(argv[1], "-p") == 0 || strcmp(argv[1], "--plot") == 0) {
+            plotornah = 1;
+        } 
+    }
     char arithorgeo[10];
     double rate, intercept;
     int arorgeo, end;
     int x = 0;
-    printf("Aritmetic or Geometric (all lowercase): ");
+    FILE *fp = fopen("data.txt", "w");  // filetime hehehehe
+
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Arithmetic or  geometric prompt
+    printf("Arithmetic or Geometric (all lowercase): ");
     scanf("%s", arithorgeo);
+
     if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
         arorgeo = 0;
     } else if (strcmp(arithorgeo, "geometric") == 0 || strcmp(arithorgeo, "geo") == 0 || strcmp(arithorgeo, "g") == 0) {
         arorgeo = 1;
     } else {
-        printf("Please either aritmetic or geometric");
+        printf("Please enter 'arithmetic' or 'geometric'\n");
         return 1;
     }
-    char start0[4];
+
+    // Get the rate and intercept
     printf("Enter your rate (Common difference/common ratio): ");
     scanf("%lf", &rate);
-    
     printf("Enter your intercept (or start, X is 0): ");
     scanf("%lf", &intercept);
-    
     printf("Ending X value (gotta stop somewhere): ");
     scanf("%d", &end);
-    
+
+    char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
-    
+
     if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0) {
-        // no more
-    } else if (strcmp(start0, "yes") || strcmp(start0, "y") == 0) {
+        // Nothing
+    } else if (strcmp(start0, "yes") == 0 || strcmp(start0, "y") == 0) {
+        // Nah, I'd adapt
         if (arorgeo == 0) {
-            intercept = intercept - rate;
+            intercept -= rate;
         } else if (arorgeo == 1) {
-            intercept = intercept / rate;
-        } else {
-            printf("ERROR");
-            return 1;
+            intercept /= rate;
         }
     } else {
-        printf("Please enter a valid input");
+        printf("Please enter a valid input.\n");
         return 1;
     }
-    printf("   n  |  f(n)\n");
-    printf("-----------------\n");
+
+    // Show the graph and write the data
     if (arorgeo == 0) {
-        
+        // Arithmetic sequence
         while (x <= end) {
-            printf("  %3d | %f\n", x, intercept + x * rate);
+            double fn = intercept + x * rate;
+            printf("%d | %lf\n", x, fn);
+            fprintf(fp, "%d %lf\n", x, fn);  
             ++x;
         }
     } else if (arorgeo == 1) {
+        // Geometric sequence
         while (x <= end) {
-            printf("  %3d | %f\n", x, intercept * pow(rate, x));
+            double fn = intercept * pow(rate, x);
+            printf("%d | %lf\n", x, fn);
+            fprintf(fp, "%d %lf\n", x, fn);  
             ++x;
         }
     }
-    if (arorgeo == 0) {
-        printf("\nLine: f(n) = %lfn + %lf\n", rate, intercept);
-        printf("a_0 = %lf, a_n = a_n-1 + %lf\n", intercept, rate);
-    } else if (arorgeo == 1) {
-        printf("\nLine: f(n) = %lf^n * %lf\n", rate, intercept);
-        printf("a_0 = %lf, a_n = a_n-1 * %lf\n", intercept, rate);
-    }  
-    
-    return 0;
 
+    fclose(fp); 
+
+    // Open Graph
+    if (plotornah == 1) {
+        plotGraph("data.txt");
+    }
+    return 0;
 }
