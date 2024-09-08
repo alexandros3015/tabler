@@ -11,7 +11,7 @@ void plotGraph(const char *filename) {
         fprintf(gnuplot, "set xlabel 'n'\n");
         fprintf(gnuplot, "set ylabel 'f(n)'\n");
         fprintf(gnuplot, "set grid\n");
-        fprintf(gnuplot, "plot '%s' with lines\n", filename);  
+        fprintf(gnuplot, "plot '%s' with lines\n", filename);
         pclose(gnuplot);
     } else {
         printf("Error: Could not open gnuplot.\n");
@@ -20,10 +20,19 @@ void plotGraph(const char *filename) {
 
 int main(int argc, char *argv[]) {
     int plotornah = 0;
+
+    // Variable to print the table in the console, or nahh
+    int printornah = 1;
+
     if (argc > 1) {
-        if (strcmp(argv[1], "-p") == 0 || strcmp(argv[1], "--plot") == 0) {
-            plotornah = 1;
-        } 
+        for (int x = 0; x < argc; x++) {
+            if (strcmp(argv[x], "-p") == 0 || strcmp(argv[x], "--plot") == 0) {
+                plotornah = 1;
+            }
+            else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "-n") == 0) {
+                printornah = 0;
+            }
+        }
     }
     char arithorgeo[10];
     double rate, intercept;
@@ -74,30 +83,42 @@ int main(int argc, char *argv[]) {
         printf("Please enter a valid input.\n");
         return 1;
     }
-    printf("  n | f(n)\n");
-    printf("----------\n");
+
+    if(printornah == 1){
+        printf("  n | f(n)\n");
+        printf("----------\n");
+    }
     // Show the graph and write the data
     if (arorgeo == 0) {
         // Arithmetic sequence
         while (x <= end) {
             double fn = intercept + x * rate;
-            printf("%3d | %lf\n", x, fn);
-            fprintf(fp, "%d %lf\n", x, fn);  
+            if(printornah == 1){
+                printf("%3d | %lf\n", x, fn);
+            }
+            fprintf(fp, "%d %lf\n", x, fn);
             ++x;
         }
-        printf("\nf(n) = %lf + %lf * n\n", intercept, rate);
+        if(printornah == 1){
+            printf("\nf(n) = %lf + %lf * n\n", intercept, rate);
+        }
     } else if (arorgeo == 1) {
         // Geometric sequence
         while (x <= end) {
             double fn = intercept * pow(rate, x);
-            printf("%3d | %lf\n", x, fn);
-            fprintf(fp, "%d %lf\n", x, fn);  
+            if(printornah == 1){
+                printf("%3d | %lf\n", x, fn);
+            }
+            fprintf(fp, "%d %lf\n", x, fn);
             ++x;
         }
-        printf("\nf(n) = %lf * %lf^n\n", intercept, rate);
+        if(printornah == 1){
+            printf("\nf(n) = %lf * %lf^n\n", intercept, rate);
+        }
     }
 
-    fclose(fp); 
+
+    fclose(fp);
 
     // Open Graph
     if (plotornah == 1) {
