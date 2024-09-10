@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
 
     if (argc > 1) {
         for (int x = 0; x < argc; x++) {
-            if (strcmp(argv[x], "-p") == 0 || strcmp(argv[x], "--plot") == 0) {
+            if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0) {
                 plotornah = 1;
             }
-            else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "-n") == 0) {
+            else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "--n") == 0) {
                 printornah = 0;
             }
         }
@@ -61,18 +61,20 @@ int main(int argc, char *argv[]) {
     // Get the rate and intercept
     printf("Enter your rate (Common difference/common ratio): ");
     scanf("%lf", &rate);
-    printf("Enter your intercept (or start, X is 0): ");
+    printf("Enter your intercept (or start, f(0)): ");
     scanf("%lf", &intercept);
-    printf("Ending X value (gotta stop somewhere): ");
-    scanf("%d", &end);
+    printf("min: ");
+    scanf("%d", &x);
+    printf("max: ")
+    scanf("%d" &end)
 
     char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
 
-    if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0) {
+    if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0 || strcmp(start0, "0") == 0) {
         // Nothing
-    } else if (strcmp(start0, "yes") == 0 || strcmp(start0, "y") == 0) {
+    } else if (strcmp(start0, "yes") == 0 || strcmp(start0, "y") == 0 || strcmp(start0, "1")) {
         // Nah, I'd adapt
         if (arorgeo == 0) {
             intercept -= rate;
@@ -85,7 +87,7 @@ int main(int argc, char *argv[]) {
     }
 
     if(printornah == 1){
-        printf("  n | f(n)\n");
+        printf("  n | f(n\n");
         printf("----------\n");
     }
     // Show the graph and write the data
