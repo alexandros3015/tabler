@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Arithmetic or  geometric prompt
-    printf("Arithmetic or Geometric (all lowercase): ");
+    printf("Arithmetic or Geometric (a or g): ");
     scanf("%s", arithorgeo);
 
     if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
@@ -63,10 +63,13 @@ int main(int argc, char *argv[]) {
     // Get the rate and intercept
     printf("Enter your rate (Common difference/common ratio): ");
     scanf("%lf", &rate);
-    printf("Enter your intercept (or start, f(0)): ");
+
+    printf("Enter your intercept (or start, f(0)/f(1)): ");
     scanf("%lf", &intercept);
+
     printf("min: ");
     scanf("%d", &x);
+
     printf("max: ");
     scanf("%d", &end);
 
