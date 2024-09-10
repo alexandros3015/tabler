@@ -19,11 +19,11 @@ void plotGraph(const char *filename) {
 }
 
 int main(int argc, char *argv[]) {
-    int plotornah = 0;
+    int plotornah = 0; // 1 is do plot 0 is no
 
     // Variable to print the table in the console, or nahh
     int printornah = 1;
-
+    int deleteafter = 1; // 1 means don't delete the file after plotting
     if (argc > 1) {
         for (int x = 0; x < argc; x++) {
             if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0) {
@@ -31,12 +31,14 @@ int main(int argc, char *argv[]) {
             }
             else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "--n") == 0) {
                 printornah = 0;
-            }
+            } else if (strcmp(argv[x], "--remove") == 0) {
+                deleteafter = 0;
+            } 
         }
     }
     char arithorgeo[10];
     double rate, intercept;
-    int arorgeo, end;
+    int arorgeo, end; // Arorgeo: 1 is geometric 0 is arithmetic
     int x = 0;
     FILE *fp = fopen("data.txt", "w");  // filetime hehehehe
 
@@ -71,6 +73,23 @@ int main(int argc, char *argv[]) {
     char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
+
+    // Error handling
+
+    if (rate == 0 && arorgeo == 1) {
+        printf("Error: Geometric sequences cannot have a ratio of 0.\n");
+        return 1;
+    }
+
+    if (intercept == 0 && arorgeo == 1) {
+        printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1\n");
+        intercept = 1;
+    }
+
+    if (end < x) {
+        printf("Error: Max value should be greater than min value.\n");
+        return 1;
+    }
 
     if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0 || strcmp(start0, "0") == 0) {
         // Nothing
@@ -125,6 +144,14 @@ int main(int argc, char *argv[]) {
     // Open Graph
     if (plotornah == 1) {
         plotGraph("data.txt");
+    }
+    
+    if (deleteafter == 0) {
+        if (remove("data.txt") == 0) {
+            printf("Sucessfully deleted file");
+        } else {
+            printf("Error: could not delete file");
+        }
     }
     return 0;
 }

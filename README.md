@@ -7,6 +7,7 @@ A cool that makes a cool little table based on like stuff. I made it because I w
 Enter either a or g (arithmetic or geometric). 
 Arithmetic Structure: `f(n) = mn + b`
 Geometric Stucture: `f(n) = b(m)^n`
+Use `--remove` to remove the file `data.txt` after running the script. data.txt contains the file
 
 ## gnuplot
 
