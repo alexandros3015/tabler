@@ -65,8 +65,8 @@ int main(int argc, char *argv[]) {
     scanf("%lf", &intercept);
     printf("min: ");
     scanf("%d", &x);
-    printf("max: ")
-    scanf("%d" &end)
+    printf("max: ");
+    scanf("%d", &end);
 
     char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
