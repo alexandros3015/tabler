@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     }
     char arithorgeo[10];
     double rate, intercept;
-    int arorgeo, end; // Arorgeo: 1 is geometric 0 is arithmetic
+    int arorgeo, end; // Arorgeo: 1 is geometric 0 is arithmetic 2 is exponential
     int x = 0;
     FILE *fp = fopen("data.txt", "w");  // filetime hehehehe
 
@@ -48,15 +48,17 @@ int main(int argc, char *argv[]) {
     }
 
     // Arithmetic or  geometric prompt
-    printf("Arithmetic or Geometric (a or g): ");
+    printf("Arithmetic, Geometric, or Exponential (a, g, or e): ");
     scanf("%s", arithorgeo);
 
     if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
         arorgeo = 0;
     } else if (strcmp(arithorgeo, "geometric") == 0 || strcmp(arithorgeo, "geo") == 0 || strcmp(arithorgeo, "g") == 0) {
         arorgeo = 1;
-    } else {
-        printf("Please enter 'arithmetic' or 'geometric'\n");
+    } else if (strcmp(arithorgeo, "exponential") == 0 || strcmp(arithorgeo, "e") == 0) {
+        arorgeo = 2;
+    }else {
+        printf("Please enter 'arithmetic', 'geometric', or 'exponential'\n");
         return 1;
     }
 
@@ -113,34 +115,29 @@ int main(int argc, char *argv[]) {
         printf("----------\n");
     }
     // Show the graph and write the data
-    if (arorgeo == 0) {
-        // Arithmetic sequence
-        while (x <= end) {
-            double fn = intercept + x * rate;
-            if(printornah == 1){
-                printf("%3d | %lf\n", x, fn);
-            }
-            fprintf(fp, "%d %lf\n", x, fn);
-            ++x;
+    while (x <= end) {
+        double fn = 0;
+        if (arorgeo == 0) {
+            fn = intercept + x * rate; // Arithmetic
+        } else if (arorgeo == 1) {
+            fn = intercept * pow(rate, x); // Geometric
+        } else if (arorgeo == 2) {
+            fn = intercept * exp(rate * x); // Exponential
         }
-        if(printornah == 1){
-            printf("\nf(n) = %lf + %lf * n\n", intercept, rate);
+        if (printornah == 1) {
+            printf("%3d | %lf\n", x, fn);
         }
-    } else if (arorgeo == 1) {
-        // Geometric sequence
-        while (x <= end) {
-            double fn = intercept * pow(rate, x);
-            if(printornah == 1){
-                printf("%3d | %lf\n", x, fn);
-            }
-            fprintf(fp, "%d %lf\n", x, fn);
-            ++x;
-        }
-        if(printornah == 1){
-            printf("\nf(n) = %lf * %lf^n\n", intercept, rate);
-        }
+        fprintf(fp, "%d %lf\n", x, fn);
+        ++x;
     }
-
+    
+    if (arorgeo == 0) {
+        printf("Equation: f(n) = %lf + %lf * n", intercept, rate)
+    } else if (arorgeo == 1) {
+        printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate)
+    } else if (arorgeo == 2) {
+        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate)
+    }    
 
     fclose(fp);
 
