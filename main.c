@@ -36,9 +36,10 @@ int main(int argc, char *argv[]) {
             } 
         }
     }
-    char arithorgeo[10];
+    char arithmeticOrGeometric[10];
+
     double rate, intercept;
-    int arorgeo, end; // Arorgeo: 1 is geometric 0 is arithmetic 2 is exponential
+    int progressionType, end; // progressionType: 1 is geometric 0 is arithmetic 2 is exponential
     int x = 0;
     FILE *fp = fopen("data.txt", "w");  // filetime hehehehe
 
@@ -47,17 +48,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Arithmetic or  geometric prompt
+    // Arithmetic or geometric or exponentioal
     printf("Arithmetic, Geometric, or Exponential (a, g, or e): ");
-    scanf("%s", arithorgeo);
+    scanf("%s", arithmeticOrGeometric);
 
-    if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
-        arorgeo = 0;
-    } else if (strcmp(arithorgeo, "geometric") == 0 || strcmp(arithorgeo, "geo") == 0 || strcmp(arithorgeo, "g") == 0) {
-        arorgeo = 1;
-    } else if (strcmp(arithorgeo, "exponential") == 0 || strcmp(arithorgeo, "e") == 0) {
-        arorgeo = 2;
+    // Check for what type to use
+    if (strcmp(arithmeticOrGeometric, "arithmetic") == 0 || strcmp(arithmeticOrGeometric, "ari") == 0 || strcmp(arithmeticOrGeometric, "a") == 0) {
+        progressionType = 0;
+    } else if (strcmp(arithmeticOrGeometric, "geometric") == 0 || strcmp(arithmeticOrGeometric, "geo") == 0 || strcmp(arithmeticOrGeometric, "g") == 0) {
+        progressionType = 1;
+    } else if (strcmp(arithmeticOrGeometric, "exponential") == 0 || strcmp(arithmeticOrGeometric, "e") == 0) {
+        progressionType = 2;
     }else {
+        // You didn't type in any of thos
         printf("Please enter 'arithmetic', 'geometric', or 'exponential'\n");
         return 1;
     }
@@ -66,50 +69,59 @@ int main(int argc, char *argv[]) {
     printf("Enter your rate (Common difference/common ratio): ");
     scanf("%lf", &rate);
 
+    // Get the start
     printf("Enter your intercept (or start, f(0)/f(1)): ");
     scanf("%lf", &intercept);
 
+    // Get the min X
     printf("min: ");
     scanf("%d", &x);
 
+    // Get the max X
     printf("max: ");
     scanf("%d", &end);
 
+    // Get the start again?
     char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
     scanf("%s", start0);
 
     // Error handling
 
-    if (rate == 0 && arorgeo == 1) {
+    if (rate == 0 && progressionType == 1) {
         printf("Error: Geometric sequences cannot have a ratio of 0.\n");
         return 1;
     }
 
-    if (intercept == 0 && arorgeo == 1) {
+    // More error handling
+    if (intercept == 0 && progressionType == 1) {
         printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1\n");
         intercept = 1;
     }
 
+    // MORE ERROR HANDLING
     if (end < x) {
         printf("Error: Max value should be greater than min value.\n");
         return 1;
     }
 
+    
     if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0 || strcmp(start0, "0") == 0) {
         // Nothing
     } else if (strcmp(start0, "yes") == 0 || strcmp(start0, "y") == 0 || strcmp(start0, "1")) {
         // Nah, I'd adapt
-        if (arorgeo == 0) {
+        if (progressionType == 0) {
             intercept -= rate;
-        } else if (arorgeo == 1) {
+        } else if (progressionType == 1) {
             intercept /= rate;
         }
     } else {
+        // No valid input
         printf("Please enter a valid input.\n");
         return 1;
     }
 
+    // Print the table header
     if(printornah == 1){
         printf("  n | f(n\n");
         printf("----------\n");
@@ -117,11 +129,11 @@ int main(int argc, char *argv[]) {
     // Show the graph and write the data
     while (x <= end) {
         double fn = 0;
-        if (arorgeo == 0) {
+        if (progressionType == 0) {
             fn = intercept + x * rate; // Arithmetic
-        } else if (arorgeo == 1) {
+        } else if (progressionType == 1) {
             fn = intercept * pow(rate, x); // Geometric
-        } else if (arorgeo == 2) {
+        } else if (progressionType == 2) {
             fn = intercept * exp(rate * x); // Exponential
         }
         if (printornah == 1) {
@@ -131,11 +143,12 @@ int main(int argc, char *argv[]) {
         ++x;
     }
     
-    if (arorgeo == 0) {
+    // Print the equation
+    if (progressionType == 0) {
         printf("Equation: f(n) = %lf + %lf * n", intercept, rate);
-    } else if (arorgeo == 1) {
+    } else if (progressionType == 1) {
         printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate);
-    } else if (arorgeo == 2) {
+    } else if (progressionType == 2) {
         printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate);
     }    
 
@@ -146,6 +159,7 @@ int main(int argc, char *argv[]) {
         plotGraph("data.txt");
     }
     
+    // Delete the data.txt file
     if (deleteafter == 0) {
         if (remove("data.txt") == 0) {
             printf("Sucessfully deleted file");
@@ -153,5 +167,7 @@ int main(int argc, char *argv[]) {
             printf("Error: could not delete file");
         }
     }
+
+    // Yippie
     return 0;
 }
