@@ -14,3 +14,9 @@ Use `--remove` to remove the file `data.txt` after running the script. data.txt 
 If you want to plot the graph, first you need to [install gnuplot](https://sourceforge.net/projects/gnuplot/files/gnuplot/) and go though the installation process. Make sure to add the program to path. 
 After installing gnuplot, simply add `--plot` or `--p` as an argument to running the file (e.g. `.\main.exe --plot`).
 If you don't wanna plot it just don't add the argument.
+
+### Building
+To build, clone the repository, and run this command in the cloned folder:
+```
+gcc -o main.exe main.c -lm
+```
