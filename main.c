@@ -132,11 +132,11 @@ int main(int argc, char *argv[]) {
     }
     
     if (arorgeo == 0) {
-        printf("Equation: f(n) = %lf + %lf * n", intercept, rate)
+        printf("Equation: f(n) = %lf + %lf * n", intercept, rate);
     } else if (arorgeo == 1) {
-        printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate)
+        printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate);
     } else if (arorgeo == 2) {
-        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate)
+        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate);
     }    
 
     fclose(fp);
