@@ -64,16 +64,28 @@ int main(int argc, char *argv[]) {
 
     // Get the rate and intercept
     printf("Enter your rate (Common difference/common ratio): ");
-    scanf("%lf", &rate);
+    if (scanf("%lf", &rate) != 1) {
+        printf("Error: Invalid input for rate. Please enter a number.\n");
+        return 1;
+    }
 
     printf("Enter your intercept (or start, f(0)/f(1)): ");
-    scanf("%lf", &intercept);
+    if (scanf("%lf", &intercept) != 1) {
+        printf("Error: Invalid input for intercept. Please enter a number.\n");
+        return 1;
+    }
 
     printf("min: ");
-    scanf("%d", &x);
+    if (scanf("%lf", &x) != 1) {
+        printf("Error: Invalid input for minimum. Please enter a number.\n");
+        return 1;
+    }
 
     printf("max: ");
-    scanf("%d", &end);
+    if (scanf("%lf", &end) != 1) {
+        printf("Error: Invalid input for Maximum. Please enter a number.\n");
+        return 1;
+    }
 
     char start0[4];
     printf("Is the first value you put in f(1) (no for f(0)): ");
@@ -136,7 +148,7 @@ int main(int argc, char *argv[]) {
     } else if (arorgeo == 1) {
         printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate);
     } else if (arorgeo == 2) {
-        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate);
+        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate)
     }    
 
     fclose(fp);
