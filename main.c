@@ -76,13 +76,13 @@ int main(int argc, char *argv[]) {
     }
 
     printf("min: ");
-    if (scanf("%lf", &x) != 1) {
+    if (scanf("%d", &x) != 1) {
         printf("Error: Invalid input for minimum. Please enter a number.\n");
         return 1;
     }
 
     printf("max: ");
-    if (scanf("%lf", &end) != 1) {
+    if (scanf("%d", &end) != 1) {
         printf("Error: Invalid input for Maximum. Please enter a number.\n");
         return 1;
     }
@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
     } else if (arorgeo == 1) {
         printf("Equation: f(n) = %lf * %lf ^ n", intercept, rate);
     } else if (arorgeo == 2) {
-        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate)
+        printf("Equation: f(n) = %lf * e ^ (%lf * n)", intercept, rate);
     }    
 
     fclose(fp);
