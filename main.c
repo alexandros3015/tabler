@@ -3,6 +3,15 @@
 #include <math.h>
 #include <stdlib.h>
 
+#ifdef _WIN32
+    #include <windows.h>
+    #define SLEEP(ms) Sleep(ms)
+#else
+    #include <unistd.h>
+    #define SLEEP(ms) usleep((ms) * 1000)
+#endif
+
+
 // freaky GNUPlot stuff
 void plotGraph(const char *filename) {
     FILE *gnuplot = popen("gnuplot -persistent", "w");
@@ -24,6 +33,7 @@ int main(int argc, char *argv[]) {
     // Variable to print the table in the console, or nahh
     int printornah = 1;
     int deleteafter = 1; // 1 means don't delete the file after plotting
+    int edge = 1;
     if (argc > 1) {
         for (int x = 0; x < argc; x++) {
             if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0) {
@@ -34,6 +44,9 @@ int main(int argc, char *argv[]) {
             } else if (strcmp(argv[x], "--remove") == 0) {
                 deleteafter = 0;
             } 
+            else if (strcmp(argv[x], "--edge") == 0) {
+            	edge = 0;
+            }
         }
     }
     char arithorgeo[10];
@@ -128,6 +141,14 @@ int main(int argc, char *argv[]) {
     }
     // Show the graph and write the data
     while (x <= end) {
+        if (edge == 1) {
+        	#ifdef _WIN32
+    			system("cls");  // Windows
+			#else
+    			system("clear");  // Linux/macOS
+			#endif
+			SLEEP(500);
+        }
         double fn = 0;
         if (arorgeo == 0) {
             fn = intercept + x * rate; // Arithmetic
