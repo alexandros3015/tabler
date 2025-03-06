@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     // Variable to print the table in the console, or nahh
     int printornah = 1;
     int deleteafter = 1; // 1 means don't delete the file after plotting
-    int edge = 1;
+    int edge = 0;
     if (argc > 1) {
         for (int x = 0; x < argc; x++) {
             if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0) {
