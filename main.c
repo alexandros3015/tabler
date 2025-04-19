@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
                 deleteafter = 0;
             } 
             else if (strcmp(argv[x], "--edge") == 0) {
-            	edge = 0;
+            	edge = 1;
             }
         }
     }
