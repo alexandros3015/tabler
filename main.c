@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (intercept == 0 && arorgeo == 1) {
+    if (intercept == 0 && arorgeo == 1 || intercept == 0 && arorgeo == 2) {
         printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1.\n");
         intercept = 1;
     }
