@@ -100,9 +100,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    char start0[4];
-    printf("Is the first value you put in f(1) (no for f(0)): ");
-    scanf("%s", start0);
+    int start_point = 0;
+    printf("Enter x value for given intercept: ");
+    if (scanf("%d", &start_point) != 1) {
+        printf("Error: Invalid input for x value. Please enter a number.\n");
+        return 1;
+    }
 
     // Error handling
 
@@ -121,16 +124,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (strcmp(start0, "no") == 0 || strcmp(start0, "n") == 0 || strcmp(start0, "0") == 0) {
-        // Nothing
-    } else if (strcmp(start0, "yes") == 0 || strcmp(start0, "y") == 0 || strcmp(start0, "1")) {
-        // Nah, I'd adapt
-        if (arorgeo == 0) {
-            intercept -= rate;
-        } else if (arorgeo == 1) {
-            intercept /= rate;
-        }
-    } else {
+    //double base = 0.0;
+    
+    
+    
+    else {
         printf("Please enter a valid input.\n");
         return 1;
     }
@@ -149,26 +147,38 @@ int main(int argc, char *argv[]) {
 			#endif
 			SLEEP(500);
         }
+
         double fn = 0;
         if (arorgeo == 0) {
             fn = intercept + x * rate; // Arithmetic
-        } else if (arorgeo == 1) {
+        } 
+        
+        else if (arorgeo == 1) {
             fn = intercept * pow(rate, x); // Geometric
-        } else if (arorgeo == 2) {
+        } 
+        
+        else if (arorgeo == 2) {
             fn = intercept * exp(rate * x); // Exponential
         }
+        
         if (printornah == 1) {
             printf("%3d | %lf\n", x, fn);
         }
+
+
         fprintf(fp, "%d %lf\n", x, fn);
         ++x;
     }
     
     if (arorgeo == 0) {
         printf("Equation: f(n) = %lf + %lf * n\n", intercept, rate);
-    } else if (arorgeo == 1) {
+    } 
+    
+    else if (arorgeo == 1) {
         printf("Equation: f(n) = %lf * %lf ^ n\n", intercept, rate);
-    } else if (arorgeo == 2) {
+    } 
+    
+    else if (arorgeo == 2) {
         printf("Equation: f(n) = %lf * e ^ (%lf * n)\n", intercept, rate);
     }    
 
