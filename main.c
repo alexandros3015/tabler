@@ -124,9 +124,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    //double base = 0.0;
+    double base = 0.0;
     
-    
+    if (arorgeo == 0) {
+        base = intercept - rate * start_point;
+    }
+
+    else if (arorgeo == 1) {
+        base = intercept / pow(rate, start_point);
+    }
+
+    else if (arorgeo == 2) {
+        base = intercept / exp(-rate * start_point);
+    }
     
     else {
         printf("Please enter a valid input.\n");
@@ -150,15 +160,15 @@ int main(int argc, char *argv[]) {
 
         double fn = 0;
         if (arorgeo == 0) {
-            fn = intercept + x * rate; // Arithmetic
+            fn = base + x * rate; // Arithmetic
         } 
         
         else if (arorgeo == 1) {
-            fn = intercept * pow(rate, x); // Geometric
+            fn = base * pow(rate, x); // Geometric
         } 
         
         else if (arorgeo == 2) {
-            fn = intercept * exp(rate * x); // Exponential
+            fn = base * exp(rate * x); // Exponential
         }
         
         if (printornah == 1) {
@@ -171,15 +181,15 @@ int main(int argc, char *argv[]) {
     }
     
     if (arorgeo == 0) {
-        printf("Equation: f(n) = %lf + %lf * n\n", intercept, rate);
+        printf("Equation: f(n) = %lf + %lf * n\n", base, rate);
     } 
     
     else if (arorgeo == 1) {
-        printf("Equation: f(n) = %lf * %lf ^ n\n", intercept, rate);
+        printf("Equation: f(n) = %lf * %lf ^ n\n", base, rate);
     } 
     
     else if (arorgeo == 2) {
-        printf("Equation: f(n) = %lf * e ^ (%lf * n)\n", intercept, rate);
+        printf("Equation: f(n) = %lf * e ^ (%lf * n)\n", base, rate);
     }    
 
     fclose(fp);
