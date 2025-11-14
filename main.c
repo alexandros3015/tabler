@@ -63,9 +63,14 @@ int main(int argc, char *argv[]) {
                 printf("  --help: Print this help message\n");
                 return 0;
             }
+
+            else {
+                printf("Invalid option: %s\n", argv[x]);
+                return 1;
+            }
         }
     }
-    char arithorgeo[10];
+    char arithorgeo[15];
     double rate, intercept;
     int arorgeo, end; // Arorgeo: 1 is geometric 0 is arithmetic 2 is exponential
     int x = 0;
@@ -78,7 +83,7 @@ int main(int argc, char *argv[]) {
 
     // Arithmetic or  geometric prompt
     printf("Arithmetic, Geometric, or Exponential (a, g, or e): ");
-    scanf("%s", arithorgeo);
+    scanf("%14s", arithorgeo);
 
     if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
         arorgeo = 0;
@@ -137,7 +142,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (intercept == 0 && arorgeo == 1) {
-        printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1\n");
+        printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1.\n");
         intercept = 1;
     }
 
