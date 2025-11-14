@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
             else if (strcmp(argv[x], "--help") == 0 || strcmp(argv[x], "--h") == 0 || strcmp(argv[x], "-h") == 0) {
                 printf("Usage: tabler [options]\n");
                 printf("Options:\n");
-                printf("  --p, --plot: Plot the graph\n");
-                printf("  --noprint, --n: Don't print the graph\n");
-                printf("  --remove: Remove the file after plotting\n");
-                printf("  --edge: Haha funny edge (suggested by dalepwo)\n");
-                printf("  --help: Print this help message\n");
+                printf("  --plot, --p, -p: Plot the graph using gnuplot. MUST HAVE GNUPLOT INSTALLED\n");
+                printf("  --noprint, --n, -n: Do not print the table to the console\n");
+                printf("  --remove, --r, -r: Remove the file after plotting\n");
+                printf("  --edge, --e, -e: Draw a line at the edge of the graph\n");
+                printf("  --help, --h, -h: Print this help message\n");
                 return 0;
             }
         }
@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (intercept == 0 && arorgeo == 1 || intercept == 0 && arorgeo == 2) {
+    if (intercept == 0 && (arorgeo == 1 ||arorgeo == 2)) {
         printf("Error: An intercept for a geometric sequence will result in all values become 0. Replacing 0 with 1.\n");
         intercept = 1;
     }
@@ -223,7 +223,7 @@ int main(int argc, char *argv[]) {
     
     if (deleteafter == 0) {
         if (remove("data.txt") == 0) {
-            printf("Sucessfully deleted file");
+            printf("Successfully deleted file");
         } else {
             printf("Error: could not delete file");
         }
