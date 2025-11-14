@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Enter your intercept (or start, f(0)/f(1)): ");
+    printf("Enter your staring value (y): ");
     if (scanf("%lf", &intercept) != 1) {
         printf("Error: Invalid input for intercept. Please enter a number.\n");
         return 1;
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
         }
         
         if (printornah == 1) {
-            printf("%3d | %lf\n", x, fn);
+            printf("%3d | %lg\n", x, fn);
         }
 
 
