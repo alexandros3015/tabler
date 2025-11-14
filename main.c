@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
     }
 
     else if (arorgeo == 2) {
-        base = intercept / exp(-rate * start_point);
+        base = intercept / exp(rate * start_point);
     }
     
     else {
@@ -150,7 +150,7 @@ int main(int argc, char *argv[]) {
     }
 
     if(printornah == 1){
-        printf("  n | f(n\n");
+        printf("  n | f(n)\n");
         printf("----------\n");
     }
     // Show the graph and write the data
