@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     int deleteafter = 1; // 1 means don't delete the file after plotting
     int edge = 0;
     if (argc > 1) {
-        for (int x = 0; x < argc; x++) {
+        for (int x = 1; x < argc; x++) {
             
             if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0 || strcmp(argv[x], "-p") == 0) {
                 plotornah = 1;
@@ -62,11 +62,6 @@ int main(int argc, char *argv[]) {
                 printf("  --edge: Haha funny edge (suggested by dalepwo)\n");
                 printf("  --help: Print this help message\n");
                 return 0;
-            }
-
-            else {
-                printf("Invalid option: %s\n", argv[x]);
-                return 1;
             }
         }
     }
