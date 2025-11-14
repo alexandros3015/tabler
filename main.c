@@ -66,11 +66,17 @@ int main(int argc, char *argv[]) {
 
     if (strcmp(arithorgeo, "arithmetic") == 0 || strcmp(arithorgeo, "ari") == 0 || strcmp(arithorgeo, "a") == 0) {
         arorgeo = 0;
-    } else if (strcmp(arithorgeo, "geometric") == 0 || strcmp(arithorgeo, "geo") == 0 || strcmp(arithorgeo, "g") == 0) {
+    } 
+    
+    else if (strcmp(arithorgeo, "geometric") == 0 || strcmp(arithorgeo, "geo") == 0 || strcmp(arithorgeo, "g") == 0) {
         arorgeo = 1;
-    } else if (strcmp(arithorgeo, "exponential") == 0 || strcmp(arithorgeo, "e") == 0) {
+    } 
+    
+    else if (strcmp(arithorgeo, "exponential") == 0 || strcmp(arithorgeo, "e") == 0) {
         arorgeo = 2;
-    }else {
+    }
+    
+    else {
         printf("Please enter 'arithmetic', 'geometric', or 'exponential'\n");
         return 1;
     }
