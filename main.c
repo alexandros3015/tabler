@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Enter your staring value (y): ");
+    printf("Enter your starting value (y): ");
     if (scanf("%lf", &intercept) != 1) {
         printf("Error: Invalid input for intercept. Please enter a number.\n");
         return 1;
