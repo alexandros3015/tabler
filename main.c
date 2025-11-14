@@ -37,23 +37,23 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         for (int x = 0; x < argc; x++) {
             
-            if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0) {
+            if (strcmp(argv[x], "--p") == 0 || strcmp(argv[x], "--plot") == 0 || strcmp(argv[x], "-p") == 0) {
                 plotornah = 1;
             }
             
-            else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "--n") == 0) {
+            else if (strcmp(argv[x], "--noprint") == 0 || strcmp(argv[x], "--n") == 0 || strcmp(argv[x], "-n") == 0) {
                 printornah = 0;
             } 
             
-            else if (strcmp(argv[x], "--remove") == 0) {
+            else if (strcmp(argv[x], "--remove") == 0 || strcmp(argv[x], "--r") == 0 || strcmp(argv[x], "-r") == 0) {
                 deleteafter = 0;
             } 
             
-            else if (strcmp(argv[x], "--edge") == 0) {
+            else if (strcmp(argv[x], "--edge") == 0 || strcmp(argv[x], "--e") == 0 || strcmp(argv[x], "-e") == 0) {
             	edge = 1;
             }
 
-            else if (strcmp(argv[x], "--help") == 0) {
+            else if (strcmp(argv[x], "--help") == 0 || strcmp(argv[x], "--h") == 0 || strcmp(argv[x], "-h") == 0) {
                 printf("Usage: tabler [options]\n");
                 printf("Options:\n");
                 printf("  --p, --plot: Plot the graph\n");
